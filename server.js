@@ -8,7 +8,7 @@ var cors = require("cors");
 const app = express();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const { PORT } = require("./constants");
+// const { PORT } = require("./constants");
 
 global.__basedir = __dirname;
 
@@ -47,5 +47,5 @@ app.use(express.json());
 
 const route = require("./routes");
 route(app);
-
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log("Server Started " + PORT));
