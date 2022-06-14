@@ -1,6 +1,7 @@
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const { transporter } = require("../services/nodemailer");
+require('dotenv').config();
 
 const userController = {
     getCurrentUser: async (req, res) => {
@@ -40,7 +41,7 @@ const userController = {
                         });
                 } else {
                     const content = `<a href="${
-                        "http://localhost:3000/user/verify/" + user._id
+                        process.env.DOMAIN_APP + "/user/verify/" + user._id
                     }" target="_blank">Click here to verify your account</a>`;
                     const mainOptions = {
                         from: "ProCourses E-learning",
@@ -69,7 +70,7 @@ const userController = {
             await newUser.save();
 
             const content = `<a href="${
-                "http://localhost:3000/user/verify/" + newUser._id
+                process.env.DOMAIN_APP + "/user/verify/" + newUser._id
             }" target="_blank">Click here to verify your account</a>`;
             const mainOptions = {
                 from: "ProCourses E-learning",
@@ -79,6 +80,7 @@ const userController = {
                 html: content,
             };
             transporter.sendMail(mainOptions, function (err, info) {
+                console.log("error here")
                 if (err) {
                     return res.status(500).json({ msg: err.message });
                 } else {
@@ -221,7 +223,7 @@ const userController = {
     callback: async (req, res) => {
         const user = req.user;
         const token = await user.generateAuthToken();
-        res.redirect(`http://localhost:3000/signinsuccess/${token}`);
+        res.redirect(process.env.DOMAIN_APP + `/signinsuccess/${token}`);
     },
     test: async (req, res) => {
         return res.json({ msg: "Verify successfully." });
