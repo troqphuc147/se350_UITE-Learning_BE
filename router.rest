@@ -1,0 +1,18 @@
+GET http://localhost:32/courses
+
+###
+
+GET http://localhost:32/courses/627282265734b6d3d0306e4a
+
+###
+
+POST http://localhost:32/courses
+Content-Type:application/json
+
+{
+    "name": "Learn how to hack facebook password"
+}
+
+###
+
+DELETE http://localhost:32/courses/627282265734b6d3d0306e4a
